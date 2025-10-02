@@ -154,19 +154,19 @@ export default function UserProfile({ user, token, onBack }: UserProfileProps) {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#00d9ff]"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-[#1a1a1a]">
       {/* Header */}
-      <header className="bg-gray-800 border-b border-gray-700">
+      <header className="bg-[#2a2a2a] border-b border-[#00d9ff]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <Button variant="outline" onClick={onBack} className="mr-4 border-gray-600 text-gray-300 hover:bg-gray-700">
+              <Button variant="outline" onClick={onBack} className="mr-4 border-[#00d9ff] text-gray-300 hover:bg-[#3a3a3a]">
                 ← Back
               </Button>
               <h1 className="text-2xl font-bold text-white">My Profile</h1>
@@ -180,19 +180,19 @@ export default function UserProfile({ user, token, onBack }: UserProfileProps) {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Profile Header */}
-        <Card className="mb-8 bg-gray-800 border-gray-700">
+        <Card className="mb-8 bg-[#2a2a2a] border-[#00d9ff]">
           <CardContent className="p-8">
             <div className="flex items-center space-x-6">
-              <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center">
+              <div className="w-20 h-20 bg-[#00d9ff] rounded-full flex items-center justify-center">
                 <User className="w-10 h-10 text-white" />
               </div>
               <div className="flex-1">
                 <h2 className="text-2xl font-bold text-white">{user.name}</h2>
                 <p className="text-gray-400">{user.email}</p>
-                <Badge variant="secondary" className="mt-2 bg-blue-600 text-white">{user.role}</Badge>
+                <Badge variant="secondary" className="mt-2 bg-[#00d9ff] text-white">{user.role}</Badge>
               </div>
               <div className="text-right">
-                <div className="text-3xl font-bold text-blue-400">{stats.bestScore}</div>
+                <div className="text-3xl font-bold text-[#00d9ff]">{stats.bestScore}</div>
                 <div className="text-sm text-gray-400">Best Score</div>
               </div>
             </div>
@@ -201,7 +201,7 @@ export default function UserProfile({ user, token, onBack }: UserProfileProps) {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-gray-800 border-gray-700">
+          <Card className="bg-[#2a2a2a] border-[#00d9ff]">
             <CardContent className="p-6">
               <div className="flex items-center">
                 <Code className="h-8 w-8 text-blue-500" />
@@ -213,7 +213,7 @@ export default function UserProfile({ user, token, onBack }: UserProfileProps) {
             </CardContent>
           </Card>
 
-          <Card className="bg-gray-800 border-gray-700">
+          <Card className="bg-[#2a2a2a] border-[#00d9ff]">
             <CardContent className="p-6">
               <div className="flex items-center">
                 <Trophy className="h-8 w-8 text-yellow-500" />
@@ -225,7 +225,7 @@ export default function UserProfile({ user, token, onBack }: UserProfileProps) {
             </CardContent>
           </Card>
 
-          <Card className="bg-gray-800 border-gray-700">
+          <Card className="bg-[#2a2a2a] border-[#00d9ff]">
             <CardContent className="p-6">
               <div className="flex items-center">
                 <TrendingUp className="h-8 w-8 text-green-500" />
@@ -237,7 +237,7 @@ export default function UserProfile({ user, token, onBack }: UserProfileProps) {
             </CardContent>
           </Card>
 
-          <Card className="bg-gray-800 border-gray-700">
+          <Card className="bg-[#2a2a2a] border-[#00d9ff]">
             <CardContent className="p-6">
               <div className="flex items-center">
                 <Award className="h-8 w-8 text-purple-500" />
@@ -258,7 +258,7 @@ export default function UserProfile({ user, token, onBack }: UserProfileProps) {
 
           {/* Submissions Tab */}
           <TabsContent value="submissions">
-            <Card className="bg-gray-800 border-gray-700">
+            <Card className="bg-[#2a2a2a] border-[#00d9ff]">
               <CardHeader>
                 <CardTitle className="text-white">Submission History</CardTitle>
                 <p className="text-sm text-gray-400">
@@ -275,7 +275,7 @@ export default function UserProfile({ user, token, onBack }: UserProfileProps) {
                 ) : (
                   <div className="space-y-4">
                     {submissions.map((submission) => (
-                      <div key={submission.id} className="border border-gray-600 bg-gray-700 rounded-lg p-6 hover:shadow-md transition-shadow">
+                      <div key={submission.id} className="border border-[#00d9ff] bg-[#3a3a3a] rounded-lg p-6 hover:shadow-md transition-shadow">
                         <div className="flex items-start justify-between mb-4">
                           <div className="flex items-center space-x-3">
                             {getStatusIcon(submission.status)}

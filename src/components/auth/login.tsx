@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/componen
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Mail, Lock, ArrowRight, UserPlus } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface LoginProps {
@@ -95,14 +95,11 @@ export default function Login({ onSuccess, onSwitchToSignup }: LoginProps) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-dark p-4">
-      <Card className="w-full max-w-md shadow-xl bg-gray-800 border-gray-700">
+    <div className="min-h-screen flex items-center justify-center bg-[#1a1a1a] p-4">
+      <Card className="w-full max-w-md shadow-xl bg-[#2a2a2a] border-[#00d9ff]">
         <CardHeader className="text-center pb-2">
-          <div className="mx-auto w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mb-4">
-            <Mail className="w-6 h-6 text-white" />
-          </div>
           <CardTitle className="text-2xl font-bold text-white">Welcome Back</CardTitle>
-          <p className="text-gray-300">Sign in to your Codeforces account</p>
+          <p className="text-gray-400">Sign in to your account</p>
         </CardHeader>
 
         <form onSubmit={handleSubmit}>
@@ -112,14 +109,13 @@ export default function Login({ onSuccess, onSwitchToSignup }: LoginProps) {
                 Email Address
               </Label>
               <div className="relative mt-1">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="yourname@thapar.edu"
-                  className={`pl-10 ${errors.email ? "border-red-500" : ""}`}
+                  className={`bg-[#1a1a1a] border-[#3a3a3a] text-white focus:border-[#00d9ff] ${errors.email ? "border-red-500" : ""}`}
                   disabled={loading}
                 />
               </div>
@@ -133,14 +129,13 @@ export default function Login({ onSuccess, onSwitchToSignup }: LoginProps) {
                 Password
               </Label>
               <div className="relative mt-1">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
                   id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
-                  className={`pl-10 ${errors.password ? "border-red-500" : ""}`}
+                  className={`bg-[#1a1a1a] border-[#3a3a3a] text-white focus:border-[#00d9ff] ${errors.password ? "border-red-500" : ""}`}
                   disabled={loading}
                 />
               </div>
@@ -151,18 +146,18 @@ export default function Login({ onSuccess, onSwitchToSignup }: LoginProps) {
           </CardContent>
 
           <CardFooter className="flex flex-col space-y-4">
-            <Button 
-              type="submit" 
-              className="w-full bg-gradient-primary hover:opacity-90 text-white font-medium py-2.5 shadow-blue"
+            <Button
+              type="submit"
+              className="w-full bg-[#00d9ff] hover:bg-[#00b8d9] text-black font-medium py-2.5"
               disabled={loading}
             >
               {loading ? (
-                <div className="flex items-center">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                <div className="flex items-center justify-center">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black mr-2"></div>
                   Signing In...
                 </div>
               ) : (
-                <div className="flex items-center">
+                <div className="flex items-center justify-center">
                   Sign In
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </div>
@@ -170,14 +165,13 @@ export default function Login({ onSuccess, onSwitchToSignup }: LoginProps) {
             </Button>
 
             <div className="text-center">
-              <p className="text-sm text-gray-300">
-                Don't have an account?{" "}
-                <button 
-                  type="button" 
-                  className="text-blue-400 hover:text-blue-300 font-medium flex items-center mx-auto"
+              <p className="text-sm text-gray-400">
+                Don&apos;t have an account?{" "}
+                <button
+                  type="button"
+                  className="text-[#00d9ff] hover:text-[#00b8d9] font-medium inline-flex items-center"
                   onClick={onSwitchToSignup}
                 >
-                  <UserPlus className="w-4 h-4 mr-1" />
                   Create Account
                 </button>
               </p>

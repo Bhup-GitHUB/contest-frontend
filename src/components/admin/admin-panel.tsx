@@ -164,24 +164,24 @@ export default function AdminPanel({ user, token, onLogout }: AdminPanelProps) {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#00d9ff]"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-[#1a1a1a]">
       {/* Header */}
-      <header className="bg-gray-800 border-b border-gray-700">
+      <header className="bg-[#2a2a2a] border-b border-[#00d9ff]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <h1 className="text-2xl font-bold text-white">Admin Panel</h1>
-              <Badge variant="secondary" className="ml-3 bg-blue-600 text-white">Admin</Badge>
+              <Badge variant="secondary" className="ml-3 bg-[#00d9ff] text-white">Admin</Badge>
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-sm font-medium text-gray-300">{user.name}</span>
-              <Button variant="outline" size="sm" onClick={onLogout} className="border-gray-600 text-gray-300 hover:bg-gray-700">
+              <Button variant="outline" size="sm" onClick={onLogout} className="border-[#00d9ff] text-gray-300 hover:bg-[#3a3a3a]">
                 Logout
               </Button>
             </div>
@@ -192,7 +192,7 @@ export default function AdminPanel({ user, token, onLogout }: AdminPanelProps) {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-gray-800 border-gray-700">
+          <Card className="bg-[#2a2a2a] border-[#00d9ff]">
             <CardContent className="p-6">
               <div className="flex items-center">
                 <Code className="h-8 w-8 text-blue-500" />
@@ -204,7 +204,7 @@ export default function AdminPanel({ user, token, onLogout }: AdminPanelProps) {
             </CardContent>
           </Card>
 
-          <Card className="bg-gray-800 border-gray-700">
+          <Card className="bg-[#2a2a2a] border-[#00d9ff]">
             <CardContent className="p-6">
               <div className="flex items-center">
                 <Play className="h-8 w-8 text-green-500" />
@@ -218,7 +218,7 @@ export default function AdminPanel({ user, token, onLogout }: AdminPanelProps) {
             </CardContent>
           </Card>
 
-          <Card className="bg-gray-800 border-gray-700">
+          <Card className="bg-[#2a2a2a] border-[#00d9ff]">
             <CardContent className="p-6">
               <div className="flex items-center">
                 <Clock className="h-8 w-8 text-yellow-500" />
@@ -232,7 +232,7 @@ export default function AdminPanel({ user, token, onLogout }: AdminPanelProps) {
             </CardContent>
           </Card>
 
-          <Card className="bg-gray-800 border-gray-700">
+          <Card className="bg-[#2a2a2a] border-[#00d9ff]">
             <CardContent className="p-6">
               <div className="flex items-center">
                 <Users className="h-8 w-8 text-purple-500" />
@@ -249,19 +249,19 @@ export default function AdminPanel({ user, token, onLogout }: AdminPanelProps) {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold text-white">Contest Management</h2>
-            <Button onClick={() => setShowCreateForm(true)} className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700">
+            <Button onClick={() => setShowCreateForm(true)} className="flex items-center space-x-2 bg-[#00d9ff] hover:bg-[#00b8d9]">
               <Plus className="w-4 h-4" />
               <span>Create Contest</span>
             </Button>
           </div>
 
           {contests.length === 0 ? (
-            <Card className="bg-gray-800 border-gray-700">
+            <Card className="bg-[#2a2a2a] border-[#00d9ff]">
               <CardContent className="p-12 text-center">
                 <Code className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                 <h3 className="text-lg font-medium text-white mb-2">No contests yet</h3>
                 <p className="text-gray-400 mb-4">Create your first contest to get started.</p>
-                <Button onClick={() => setShowCreateForm(true)} className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700">
+                <Button onClick={() => setShowCreateForm(true)} className="flex items-center space-x-2 bg-[#00d9ff] hover:bg-[#00b8d9]">
                   <Plus className="w-4 h-4" />
                   <span>Create Contest</span>
                 </Button>
@@ -270,7 +270,7 @@ export default function AdminPanel({ user, token, onLogout }: AdminPanelProps) {
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
               {contests.map((contest) => (
-                <Card key={contest.id} className="hover:shadow-lg transition-shadow bg-gray-800 border-gray-700">
+                <Card key={contest.id} className="hover:shadow-lg transition-shadow bg-[#2a2a2a] border-[#00d9ff]">
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <CardTitle className="text-lg font-semibold text-white">
@@ -278,7 +278,7 @@ export default function AdminPanel({ user, token, onLogout }: AdminPanelProps) {
                       </CardTitle>
                       <Badge 
                         variant={isContestActive(contest) ? "default" : isContestUpcoming(contest) ? "secondary" : "outline"}
-                        className={isContestActive(contest) ? "bg-green-600" : isContestUpcoming(contest) ? "bg-blue-600" : "bg-gray-600"}
+                        className={isContestActive(contest) ? "bg-green-600" : isContestUpcoming(contest) ? "bg-[#00d9ff]" : "bg-gray-600"}
                       >
                         {isContestActive(contest) ? "Active" : isContestUpcoming(contest) ? "Upcoming" : "Ended"}
                       </Badge>
