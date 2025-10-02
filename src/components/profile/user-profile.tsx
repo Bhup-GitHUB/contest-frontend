@@ -5,17 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  User, 
-  Trophy, 
-  Code, 
-  Calendar, 
-  TrendingUp,
-  Award,
-  Clock,
-  CheckCircle,
-  XCircle
-} from "lucide-react";
+import { User, Trophy, Code, Calendar, TrendingUp, Award, Clock, CircleCheck as CheckCircle, Circle as XCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface UserProfileProps {

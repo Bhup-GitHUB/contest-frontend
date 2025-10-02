@@ -5,17 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Calendar, 
-  Clock, 
-  Code, 
-  Trophy, 
-  Users, 
-  Play,
-  CheckCircle,
-  XCircle,
-  AlertCircle
-} from "lucide-react";
+import { Calendar, Clock, Code, Trophy, Users, Play, CircleCheck as CheckCircle, Circle as XCircle, CircleAlert as AlertCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import MonacoEditor from "@monaco-editor/react";
 
