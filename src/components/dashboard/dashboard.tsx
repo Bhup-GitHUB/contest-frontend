@@ -13,7 +13,11 @@ import {
   LogOut, 
   User,
   Star,
-  TrendingUp
+  TrendingUp,
+  Settings,
+  BarChart3,
+  Play,
+  Eye
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -38,9 +42,12 @@ interface DashboardProps {
   user: User;
   token: string;
   onLogout: () => void;
+  onViewContest: (contestId: string) => void;
+  onViewProfile: () => void;
+  onViewAdmin: () => void;
 }
 
-export default function Dashboard({ user, token, onLogout }: DashboardProps) {
+export default function Dashboard({ user, token, onLogout, onViewContest, onViewProfile, onViewAdmin }: DashboardProps) {
   const [contests, setContests] = useState<Contest[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
@@ -119,15 +126,37 @@ export default function Dashboard({ user, token, onLogout }: DashboardProps) {
                 <span className="text-sm font-medium text-gray-700">{user.name}</span>
                 <Badge variant="secondary">{user.role}</Badge>
               </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={onLogout}
-                className="flex items-center space-x-1"
-              >
-                <LogOut className="w-4 h-4" />
-                <span>Logout</span>
-              </Button>
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onViewProfile}
+                  className="flex items-center space-x-1"
+                >
+                  <User className="w-4 h-4" />
+                  <span>Profile</span>
+                </Button>
+                {user.role === 'admin' && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={onViewAdmin}
+                    className="flex items-center space-x-1"
+                  >
+                    <Settings className="w-4 h-4" />
+                    <span>Admin</span>
+                  </Button>
+                )}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onLogout}
+                  className="flex items-center space-x-1"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Logout</span>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -262,8 +291,9 @@ export default function Dashboard({ user, token, onLogout }: DashboardProps) {
                       <Button 
                         size="sm" 
                         className="flex-1"
-                        disabled={!isContestActive(contest)}
+                        onClick={() => onViewContest(contest.id)}
                       >
+                        <Eye className="w-4 h-4 mr-1" />
                         {isContestActive(contest) ? "Join Contest" : "View Details"}
                       </Button>
                       <Button size="sm" variant="outline">
