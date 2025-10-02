@@ -25,22 +25,22 @@ interface LandingPageProps {
 
 export default function LandingPage({ onGetStarted, onSignIn }: LandingPageProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-100">
+    <div className="min-h-screen bg-gradient-dark">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200">
+      <header className="glass border-b border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
                 <Code className="w-5 h-5 text-white" />
               </div>
-              <h1 className="text-xl font-bold text-gray-900">Codeforces</h1>
+              <h1 className="text-xl font-bold text-white">Codeforces</h1>
             </div>
             <div className="flex items-center space-x-4">
-              <Button variant="outline" onClick={onSignIn}>
+              <Button variant="outline" onClick={onSignIn} className="text-white border-white hover:bg-white hover:text-gray-900">
                 Sign In
               </Button>
-              <Button onClick={onGetStarted} className="bg-blue-600 hover:bg-blue-700">
+              <Button onClick={onGetStarted} className="bg-gradient-primary hover:opacity-90">
                 Get Started
               </Button>
             </div>
@@ -56,11 +56,11 @@ export default function LandingPage({ onGetStarted, onSignIn }: LandingPageProps
               <Zap className="w-4 h-4 mr-2" />
               AI-Powered Code Review
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
               Master Coding with
-              <span className="text-blue-600"> AI Feedback</span>
+              <span className="text-gradient"> AI Feedback</span>
             </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
               Join coding contests, submit solutions, and get instant AI-powered feedback 
               to improve your programming skills. Perfect for students and professionals.
             </p>
@@ -68,7 +68,7 @@ export default function LandingPage({ onGetStarted, onSignIn }: LandingPageProps
               <Button 
                 size="lg" 
                 onClick={onGetStarted}
-                className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-3"
+                className="bg-gradient-primary hover:opacity-90 text-lg px-8 py-3 shadow-blue-lg"
               >
                 Start Coding Now
                 <ArrowRight className="w-5 h-5 ml-2" />
@@ -77,7 +77,7 @@ export default function LandingPage({ onGetStarted, onSignIn }: LandingPageProps
                 size="lg" 
                 variant="outline"
                 onClick={onSignIn}
-                className="text-lg px-8 py-3"
+                className="text-white border-white hover:bg-white hover:text-gray-900 text-lg px-8 py-3"
               >
                 <Play className="w-5 h-5 mr-2" />
                 Sign In
@@ -88,91 +88,91 @@ export default function LandingPage({ onGetStarted, onSignIn }: LandingPageProps
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Why Choose Codeforces?
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
               Our platform combines competitive programming with AI technology 
               to provide the best learning experience.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-gray-800 border-gray-700">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Code className="w-8 h-8 text-blue-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Real-time Coding</h3>
-                <p className="text-gray-600">
+                <h3 className="text-xl font-semibold text-white mb-4">Real-time Coding</h3>
+                <p className="text-gray-300">
                   Code in your favorite language with our integrated Monaco editor. 
                   Submit solutions instantly and get immediate feedback.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-gray-800 border-gray-700">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Trophy className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">AI-Powered Review</h3>
-                <p className="text-gray-600">
+                <h3 className="text-xl font-semibold text-white mb-4">AI-Powered Review</h3>
+                <p className="text-gray-300">
                   Get detailed AI feedback on your code quality, efficiency, 
                   and best practices with instant scoring and suggestions.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-gray-800 border-gray-700">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Users className="w-8 h-8 text-purple-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Competitive Environment</h3>
-                <p className="text-gray-600">
+                <h3 className="text-xl font-semibold text-white mb-4">Competitive Environment</h3>
+                <p className="text-gray-300">
                   Participate in timed contests, compete with peers, 
                   and climb the leaderboards to showcase your skills.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-gray-800 border-gray-700">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <BarChart3 className="w-8 h-8 text-yellow-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Progress Tracking</h3>
-                <p className="text-gray-600">
+                <h3 className="text-xl font-semibold text-white mb-4">Progress Tracking</h3>
+                <p className="text-gray-300">
                   Monitor your improvement with detailed analytics, 
                   submission history, and personalized recommendations.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-gray-800 border-gray-700">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Shield className="w-8 h-8 text-red-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Secure & Reliable</h3>
-                <p className="text-gray-600">
+                <h3 className="text-xl font-semibold text-white mb-4">Secure & Reliable</h3>
+                <p className="text-gray-300">
                   Enterprise-grade security with reliable infrastructure. 
                   Your code and data are always protected and backed up.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-gray-800 border-gray-700">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Clock className="w-8 h-8 text-indigo-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">24/7 Available</h3>
-                <p className="text-gray-600">
+                <h3 className="text-xl font-semibold text-white mb-4">24/7 Available</h3>
+                <p className="text-gray-300">
                   Practice anytime, anywhere. Our platform is always available 
                   for your coding sessions and contest participation.
                 </p>
@@ -265,31 +265,31 @@ export default function LandingPage({ onGetStarted, onSignIn }: LandingPageProps
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-800">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Ready to Start Your Coding Journey?
           </h2>
-          <p className="text-xl text-gray-600 mb-8">
+          <p className="text-xl text-gray-300 mb-8">
             Join our community of developers and start improving your coding skills today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
-              onClick={onGetStarted}
-              className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-3"
-            >
-              Get Started Free
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline"
-              onClick={onSignIn}
-              className="text-lg px-8 py-3"
-            >
-              Sign In
-            </Button>
+              <Button 
+                size="lg" 
+                onClick={onGetStarted}
+                className="bg-gradient-primary hover:opacity-90 text-lg px-8 py-3 shadow-blue-lg"
+              >
+                Get Started Free
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline"
+                onClick={onSignIn}
+                className="text-white border-white hover:bg-white hover:text-gray-900 text-lg px-8 py-3"
+              >
+                Sign In
+              </Button>
           </div>
         </div>
       </section>
