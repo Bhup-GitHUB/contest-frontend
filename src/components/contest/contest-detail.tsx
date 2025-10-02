@@ -242,25 +242,25 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-900">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-gray-800 border-b border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <Button variant="outline" onClick={onBack} className="mr-4">
+              <Button variant="outline" onClick={onBack} className="mr-4 border-gray-600 text-gray-300 hover:bg-gray-700">
                 ← Back
               </Button>
-              <h1 className="text-2xl font-bold text-gray-900">{contest.title}</h1>
+              <h1 className="text-2xl font-bold text-white">{contest.title}</h1>
               <Badge 
                 variant={isContestActive() ? "default" : "secondary"}
-                className="ml-3"
+                className={`ml-3 ${isContestActive() ? "bg-green-600" : "bg-gray-600"}`}
               >
                 {isContestActive() ? "Active" : "Inactive"}
               </Badge>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-sm font-medium text-gray-700">{user.name}</span>
+              <span className="text-sm font-medium text-gray-300">{user.name}</span>
             </div>
           </div>
         </div>
@@ -279,62 +279,62 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
           <TabsContent value="problem">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="lg:col-span-2">
-                <Card>
+                <Card className="bg-gray-800 border-gray-700">
                   <CardHeader>
-                    <CardTitle>Problem Statement</CardTitle>
+                    <CardTitle className="text-white">Problem Statement</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="prose max-w-none">
-                      <pre className="whitespace-pre-wrap text-sm leading-relaxed">
+                      <pre className="whitespace-pre-wrap text-sm leading-relaxed text-gray-300">
                         {contest.problemStatement}
                       </pre>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="mt-6">
+                <Card className="mt-6 bg-gray-800 border-gray-700">
                   <CardHeader>
-                    <CardTitle>Expected Output</CardTitle>
+                    <CardTitle className="text-white">Expected Output</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="bg-gray-100 p-4 rounded-lg">
-                      <code className="text-sm">{contest.expectedOutput}</code>
+                    <div className="bg-gray-700 p-4 rounded-lg">
+                      <code className="text-sm text-gray-300">{contest.expectedOutput}</code>
                     </div>
                   </CardContent>
                 </Card>
               </div>
 
               <div className="space-y-6">
-                <Card>
+                <Card className="bg-gray-800 border-gray-700">
                   <CardHeader>
-                    <CardTitle>Contest Info</CardTitle>
+                    <CardTitle className="text-white">Contest Info</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex items-center space-x-2">
-                      <Calendar className="w-4 h-4 text-gray-500" />
-                      <span className="text-sm">Start: {formatDate(contest.startTime)}</span>
+                      <Calendar className="w-4 h-4 text-gray-400" />
+                      <span className="text-sm text-gray-300">Start: {formatDate(contest.startTime)}</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Clock className="w-4 h-4 text-gray-500" />
-                      <span className="text-sm">End: {formatDate(contest.endTime)}</span>
+                      <Clock className="w-4 h-4 text-gray-400" />
+                      <span className="text-sm text-gray-300">End: {formatDate(contest.endTime)}</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Code className="w-4 h-4 text-gray-500" />
-                      <span className="text-sm">Submissions: {submissions.length}</span>
+                      <Code className="w-4 h-4 text-gray-400" />
+                      <span className="text-sm text-gray-300">Submissions: {submissions.length}</span>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="bg-gray-800 border-gray-700">
                   <CardHeader>
-                    <CardTitle>Best Score</CardTitle>
+                    <CardTitle className="text-white">Best Score</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="text-center">
-                      <div className="text-3xl font-bold text-blue-600">
+                      <div className="text-3xl font-bold text-blue-400">
                         {submissions.length > 0 ? Math.max(...submissions.map(s => s.score)) : 0}
                       </div>
-                      <p className="text-sm text-gray-600">out of 100</p>
+                      <p className="text-sm text-gray-400">out of 100</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -344,20 +344,20 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
 
           {/* Submit Tab */}
           <TabsContent value="submit">
-            <Card>
+            <Card className="bg-gray-800 border-gray-700">
               <CardHeader>
-                <CardTitle>Submit Solution</CardTitle>
-                <p className="text-sm text-gray-600">
+                <CardTitle className="text-white">Submit Solution</CardTitle>
+                <p className="text-sm text-gray-400">
                   Write your solution in the editor below and submit when ready.
                 </p>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center space-x-4">
-                  <label className="text-sm font-medium">Language:</label>
+                  <label className="text-sm font-medium text-gray-300">Language:</label>
                   <select
                     value={language}
                     onChange={(e) => setLanguage(e.target.value)}
-                    className="border rounded px-3 py-1 text-sm"
+                    className="border border-gray-600 bg-gray-700 text-gray-300 rounded px-3 py-1 text-sm"
                   >
                     <option value="python">Python</option>
                     <option value="javascript">JavaScript</option>
@@ -408,10 +408,10 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
                 </div>
 
                 {!isContestActive() && (
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                  <div className="bg-yellow-900 border border-yellow-600 rounded-lg p-4">
                     <div className="flex items-center">
-                      <AlertCircle className="w-5 h-5 text-yellow-600 mr-2" />
-                      <span className="text-sm text-yellow-800">
+                      <AlertCircle className="w-5 h-5 text-yellow-400 mr-2" />
+                      <span className="text-sm text-yellow-300">
                         This contest is not currently active. You cannot submit solutions.
                       </span>
                     </div>
@@ -419,10 +419,10 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
                 )}
 
                 {submissions.length >= 5 && (
-                  <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                  <div className="bg-red-900 border border-red-600 rounded-lg p-4">
                     <div className="flex items-center">
-                      <XCircle className="w-5 h-5 text-red-600 mr-2" />
-                      <span className="text-sm text-red-800">
+                      <XCircle className="w-5 h-5 text-red-400 mr-2" />
+                      <span className="text-sm text-red-300">
                         You have reached the maximum number of submissions (5) for this contest.
                       </span>
                     </div>
@@ -434,36 +434,36 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
 
           {/* Submissions Tab */}
           <TabsContent value="submissions">
-            <Card>
+            <Card className="bg-gray-800 border-gray-700">
               <CardHeader>
-                <CardTitle>My Submissions</CardTitle>
+                <CardTitle className="text-white">My Submissions</CardTitle>
               </CardHeader>
               <CardContent>
                 {submissions.length === 0 ? (
                   <div className="text-center py-8">
                     <Code className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">No submissions yet</h3>
-                    <p className="text-gray-600">Submit your first solution to see it here.</p>
+                    <h3 className="text-lg font-medium text-white mb-2">No submissions yet</h3>
+                    <p className="text-gray-400">Submit your first solution to see it here.</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
                     {submissions.map((submission) => (
-                      <div key={submission.id} className="border rounded-lg p-4">
+                      <div key={submission.id} className="border border-gray-600 bg-gray-700 rounded-lg p-4">
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center space-x-2">
                             {getStatusIcon(submission.status)}
-                            <span className="font-medium">Submission #{submission.id.slice(-8)}</span>
-                            <Badge variant="outline">{submission.status}</Badge>
+                            <span className="font-medium text-white">Submission #{submission.id.slice(-8)}</span>
+                            <Badge variant="outline" className="border-gray-500 text-gray-300">{submission.status}</Badge>
                           </div>
-                          <div className="text-sm text-gray-600">
+                          <div className="text-sm text-gray-400">
                             {formatDate(submission.createdAt)}
                           </div>
                         </div>
                         
                         <div className="flex items-center space-x-4 text-sm">
-                          <span className="font-medium">Score: {submission.score}/100</span>
+                          <span className="font-medium text-gray-300">Score: {submission.score}/100</span>
                           {submission.aiReview && (
-                            <div className="text-gray-600">
+                            <div className="text-gray-400">
                               AI Review: {submission.aiReview.overallFeedback}
                             </div>
                           )}
@@ -478,9 +478,9 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
 
           {/* Leaderboard Tab */}
           <TabsContent value="leaderboard">
-            <Card>
+            <Card className="bg-gray-800 border-gray-700">
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
+                <CardTitle className="flex items-center space-x-2 text-white">
                   <Trophy className="w-5 h-5" />
                   <span>Leaderboard</span>
                 </CardTitle>
@@ -489,25 +489,25 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
                 {leaderboard.length === 0 ? (
                   <div className="text-center py-8">
                     <Trophy className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">No submissions yet</h3>
-                    <p className="text-gray-600">Be the first to submit a solution!</p>
+                    <h3 className="text-lg font-medium text-white mb-2">No submissions yet</h3>
+                    <p className="text-gray-400">Be the first to submit a solution!</p>
                   </div>
                 ) : (
                   <div className="space-y-2">
                     {leaderboard.map((entry, index) => (
-                      <div key={entry.userId} className="flex items-center justify-between p-3 border rounded-lg">
+                      <div key={entry.userId} className="flex items-center justify-between p-3 border border-gray-600 bg-gray-700 rounded-lg">
                         <div className="flex items-center space-x-3">
-                          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 font-semibold">
+                          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-semibold">
                             {entry.rank}
                           </div>
                           <div>
-                            <div className="font-medium">{entry.userName}</div>
-                            <div className="text-sm text-gray-600">{entry.userEmail}</div>
+                            <div className="font-medium text-white">{entry.userName}</div>
+                            <div className="text-sm text-gray-400">{entry.userEmail}</div>
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="font-bold text-lg">{entry.score}</div>
-                          <div className="text-sm text-gray-600">points</div>
+                          <div className="font-bold text-lg text-white">{entry.score}</div>
+                          <div className="text-sm text-gray-400">points</div>
                         </div>
                       </div>
                     ))}

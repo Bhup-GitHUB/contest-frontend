@@ -95,20 +95,20 @@ export default function Login({ onSuccess, onSwitchToSignup }: LoginProps) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-      <Card className="w-full max-w-md shadow-xl">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-dark p-4">
+      <Card className="w-full max-w-md shadow-xl bg-gray-800 border-gray-700">
         <CardHeader className="text-center pb-2">
           <div className="mx-auto w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mb-4">
             <Mail className="w-6 h-6 text-white" />
           </div>
-          <CardTitle className="text-2xl font-bold text-gray-900">Welcome Back</CardTitle>
-          <p className="text-gray-600">Sign in to your Codeforces account</p>
+          <CardTitle className="text-2xl font-bold text-white">Welcome Back</CardTitle>
+          <p className="text-gray-300">Sign in to your Codeforces account</p>
         </CardHeader>
 
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             <div>
-              <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+              <Label htmlFor="email" className="text-sm font-medium text-gray-300">
                 Email Address
               </Label>
               <div className="relative mt-1">
@@ -129,7 +129,7 @@ export default function Login({ onSuccess, onSwitchToSignup }: LoginProps) {
             </div>
 
             <div>
-              <Label htmlFor="password" className="text-sm font-medium text-gray-700">
+              <Label htmlFor="password" className="text-sm font-medium text-gray-300">
                 Password
               </Label>
               <div className="relative mt-1">
@@ -153,7 +153,7 @@ export default function Login({ onSuccess, onSwitchToSignup }: LoginProps) {
           <CardFooter className="flex flex-col space-y-4">
             <Button 
               type="submit" 
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5"
+              className="w-full bg-gradient-primary hover:opacity-90 text-white font-medium py-2.5 shadow-blue"
               disabled={loading}
             >
               {loading ? (
@@ -170,11 +170,11 @@ export default function Login({ onSuccess, onSwitchToSignup }: LoginProps) {
             </Button>
 
             <div className="text-center">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-300">
                 Don't have an account?{" "}
                 <button 
                   type="button" 
-                  className="text-blue-600 hover:text-blue-700 font-medium flex items-center mx-auto"
+                  className="text-blue-400 hover:text-blue-300 font-medium flex items-center mx-auto"
                   onClick={onSwitchToSignup}
                 >
                   <UserPlus className="w-4 h-4 mr-1" />

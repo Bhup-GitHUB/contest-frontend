@@ -110,28 +110,28 @@ export default function Dashboard({ user, token, onLogout, onViewContest, onView
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-900">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-gray-800 border-b border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <h1 className="text-2xl font-bold text-gray-900">Codeforces</h1>
+                <h1 className="text-2xl font-bold text-white">Codeforces</h1>
               </div>
             </div>
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
-                <User className="w-5 h-5 text-gray-500" />
-                <span className="text-sm font-medium text-gray-700">{user.name}</span>
-                <Badge variant="secondary">{user.role}</Badge>
+                <User className="w-5 h-5 text-gray-400" />
+                <span className="text-sm font-medium text-gray-300">{user.name}</span>
+                <Badge variant="secondary" className="bg-blue-600 text-white">{user.role}</Badge>
               </div>
               <div className="flex items-center space-x-2">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={onViewProfile}
-                  className="flex items-center space-x-1"
+                  className="flex items-center space-x-1 border-gray-600 text-gray-300 hover:bg-gray-700"
                 >
                   <User className="w-4 h-4" />
                   <span>Profile</span>
@@ -141,7 +141,7 @@ export default function Dashboard({ user, token, onLogout, onViewContest, onView
                     variant="outline"
                     size="sm"
                     onClick={onViewAdmin}
-                    className="flex items-center space-x-1"
+                    className="flex items-center space-x-1 border-gray-600 text-gray-300 hover:bg-gray-700"
                   >
                     <Settings className="w-4 h-4" />
                     <span>Admin</span>
@@ -151,7 +151,7 @@ export default function Dashboard({ user, token, onLogout, onViewContest, onView
                   variant="outline"
                   size="sm"
                   onClick={onLogout}
-                  className="flex items-center space-x-1"
+                  className="flex items-center space-x-1 border-gray-600 text-gray-300 hover:bg-gray-700"
                 >
                   <LogOut className="w-4 h-4" />
                   <span>Logout</span>
@@ -166,35 +166,35 @@ export default function Dashboard({ user, token, onLogout, onViewContest, onView
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
+          <h2 className="text-3xl font-bold text-white mb-2">
             Welcome back, {user.name}!
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-400">
             Ready to solve some coding challenges? Check out the contests below.
           </p>
         </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
+          <Card className="bg-gray-800 border-gray-700">
             <CardContent className="p-6">
               <div className="flex items-center">
                 <Trophy className="h-8 w-8 text-yellow-500" />
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Total Contests</p>
-                  <p className="text-2xl font-bold text-gray-900">{contests.length}</p>
+                  <p className="text-sm font-medium text-gray-400">Total Contests</p>
+                  <p className="text-2xl font-bold text-white">{contests.length}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-gray-800 border-gray-700">
             <CardContent className="p-6">
               <div className="flex items-center">
                 <Clock className="h-8 w-8 text-green-500" />
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Active Contests</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm font-medium text-gray-400">Active Contests</p>
+                  <p className="text-2xl font-bold text-white">
                     {contests.filter(isContestActive).length}
                   </p>
                 </div>
@@ -202,13 +202,13 @@ export default function Dashboard({ user, token, onLogout, onViewContest, onView
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-gray-800 border-gray-700">
             <CardContent className="p-6">
               <div className="flex items-center">
                 <Calendar className="h-8 w-8 text-blue-500" />
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Upcoming</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm font-medium text-gray-400">Upcoming</p>
+                  <p className="text-2xl font-bold text-white">
                     {contests.filter(isContestUpcoming).length}
                   </p>
                 </div>
@@ -216,13 +216,13 @@ export default function Dashboard({ user, token, onLogout, onViewContest, onView
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-gray-800 border-gray-700">
             <CardContent className="p-6">
               <div className="flex items-center">
                 <Star className="h-8 w-8 text-purple-500" />
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Best Score</p>
-                  <p className="text-2xl font-bold text-gray-900">--</p>
+                  <p className="text-sm font-medium text-gray-400">Best Score</p>
+                  <p className="text-2xl font-bold text-white">--</p>
                 </div>
               </div>
             </CardContent>
@@ -232,8 +232,8 @@ export default function Dashboard({ user, token, onLogout, onViewContest, onView
         {/* Contests Section */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-semibold text-gray-900">Contests</h3>
-            <Button className="flex items-center space-x-2">
+            <h3 className="text-xl font-semibold text-white">Contests</h3>
+            <Button className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700">
               <Code className="w-4 h-4" />
               <span>Create Contest</span>
             </Button>
@@ -244,14 +244,14 @@ export default function Dashboard({ user, token, onLogout, onViewContest, onView
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
             </div>
           ) : contests.length === 0 ? (
-            <Card>
+            <Card className="bg-gray-800 border-gray-700">
               <CardContent className="p-12 text-center">
                 <Trophy className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No contests yet</h3>
-                <p className="text-gray-600 mb-4">
+                <h3 className="text-lg font-medium text-white mb-2">No contests yet</h3>
+                <p className="text-gray-400 mb-4">
                   There are no contests available at the moment.
                 </p>
-                <Button className="flex items-center space-x-2">
+                <Button className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700">
                   <Code className="w-4 h-4" />
                   <span>Create First Contest</span>
                 </Button>
@@ -260,24 +260,25 @@ export default function Dashboard({ user, token, onLogout, onViewContest, onView
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {contests.map((contest) => (
-                <Card key={contest.id} className="hover:shadow-lg transition-shadow">
+                <Card key={contest.id} className="hover:shadow-lg transition-shadow bg-gray-800 border-gray-700">
                   <CardHeader>
                     <div className="flex items-start justify-between">
-                      <CardTitle className="text-lg font-semibold text-gray-900">
+                      <CardTitle className="text-lg font-semibold text-white">
                         {contest.title}
                       </CardTitle>
                       <Badge 
                         variant={isContestActive(contest) ? "default" : isContestUpcoming(contest) ? "secondary" : "outline"}
+                        className={isContestActive(contest) ? "bg-green-600" : isContestUpcoming(contest) ? "bg-blue-600" : "bg-gray-600"}
                       >
                         {isContestActive(contest) ? "Active" : isContestUpcoming(contest) ? "Upcoming" : "Ended"}
                       </Badge>
                     </div>
-                    <p className="text-sm text-gray-600 mt-2 line-clamp-2">
+                    <p className="text-sm text-gray-400 mt-2 line-clamp-2">
                       {contest.description}
                     </p>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-2 text-sm text-gray-600">
+                    <div className="space-y-2 text-sm text-gray-400">
                       <div className="flex items-center space-x-2">
                         <Calendar className="w-4 h-4" />
                         <span>Start: {formatDate(contest.startTime)}</span>
@@ -290,13 +291,13 @@ export default function Dashboard({ user, token, onLogout, onViewContest, onView
                     <div className="mt-4 flex space-x-2">
                       <Button 
                         size="sm" 
-                        className="flex-1"
+                        className="flex-1 bg-blue-600 hover:bg-blue-700"
                         onClick={() => onViewContest(contest.id)}
                       >
                         <Eye className="w-4 h-4 mr-1" />
                         {isContestActive(contest) ? "Join Contest" : "View Details"}
                       </Button>
-                      <Button size="sm" variant="outline">
+                      <Button size="sm" variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700">
                         <Users className="w-4 h-4" />
                       </Button>
                     </div>
@@ -308,15 +309,15 @@ export default function Dashboard({ user, token, onLogout, onViewContest, onView
         </div>
 
         {/* Recent Activity */}
-        <Card>
+        <Card className="bg-gray-800 border-gray-700">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
+            <CardTitle className="flex items-center space-x-2 text-white">
               <TrendingUp className="w-5 h-5" />
               <span>Recent Activity</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-gray-400">
               <Code className="h-8 w-8 mx-auto mb-2" />
               <p>No recent activity</p>
               <p className="text-sm">Start participating in contests to see your activity here!</p>

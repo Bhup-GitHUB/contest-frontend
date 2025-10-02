@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import LandingPage from "@/components/landing/landing-page";
 import BasicSignup from "@/components/auth/basic-signup";
 import Login from "@/components/auth/login";
 import Dashboard from "@/components/dashboard/dashboard";
@@ -9,7 +8,7 @@ import AdminPanel from "@/components/admin/admin-panel";
 import ContestDetail from "@/components/contest/contest-detail";
 import UserProfile from "@/components/profile/user-profile";
 
-type View = "landing" | "login" | "signup" | "dashboard" | "admin" | "contest" | "profile";
+type View = "login" | "signup" | "dashboard" | "admin" | "contest" | "profile";
 
 interface User {
   id: string;
@@ -19,7 +18,7 @@ interface User {
 }
 
 export default function Home() {
-  const [currentView, setCurrentView] = useState<View>("landing");
+  const [currentView, setCurrentView] = useState<View>("login");
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [selectedContestId, setSelectedContestId] = useState<string | null>(null);
@@ -56,7 +55,7 @@ export default function Home() {
   const handleLogout = () => {
     setToken(null);
     setUser(null);
-    setCurrentView("landing");
+    setCurrentView("login");
     setSelectedContestId(null);
     
     // Clear stored auth data
@@ -64,7 +63,6 @@ export default function Home() {
     localStorage.removeItem("userData");
   };
 
-  const switchToLanding = () => setCurrentView("landing");
   const switchToSignup = () => setCurrentView("signup");
   const switchToLogin = () => setCurrentView("login");
   const switchToDashboard = () => setCurrentView("dashboard");
@@ -124,10 +122,6 @@ export default function Home() {
         onBack={backToDashboard}
       />
     );
-  }
-
-  if (currentView === "landing") {
-    return <LandingPage onGetStarted={switchToSignup} onSignIn={switchToLogin} />;
   }
 
   if (currentView === "signup") {
