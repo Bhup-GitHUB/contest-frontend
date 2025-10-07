@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Calendar, Clock, Code, Trophy, Users, Play, CircleCheck as CheckCircle, Circle as XCircle, CircleAlert as AlertCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import MonacoEditor from "@monaco-editor/react";
+import { api } from "@/lib/api";
 
 interface Contest {
   id: string;
@@ -57,6 +58,7 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
   const { toast } = useToast();
 
   useEffect(() => {
+    api.setToken(token);
     fetchContestDetails();
     fetchSubmissions();
     fetchLeaderboard();
@@ -64,44 +66,22 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
 
   async function fetchContestDetails() {
     try {
-      const response = await fetch(`https://codeforces-backend.bkumar-be23.workers.dev/simple-contests/${contestId}`, {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setContest(data.contest);
-      } else {
-        toast({
-          title: "Error",
-          description: "Failed to load contest details",
-          variant: "destructive",
-        });
-      }
+      const data = await api.getSimpleContest(contestId);
+      setContest((data as any)?.contest ?? null);
     } catch (error) {
       console.error("Error fetching contest:", error);
-      toast({
-        title: "Error",
-        description: "Network error while loading contest",
-        variant: "destructive",
-      });
+        toast({
+          title: "Error",
+          description: (error as any)?.message || "Failed to load contest details",
+          variant: "destructive",
+        });
     }
   }
 
   async function fetchSubmissions() {
     try {
-      const response = await fetch(`https://codeforces-backend.bkumar-be23.workers.dev/simple-contests/${contestId}/submissions`, {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setSubmissions(data.submissions || []);
-      }
+      const data = await api.getSimpleContestSubmissions(contestId);
+      setSubmissions((data as any)?.submissions || []);
     } catch (error) {
       console.error("Error fetching submissions:", error);
     }
@@ -109,16 +89,8 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
 
   async function fetchLeaderboard() {
     try {
-      const response = await fetch(`https://codeforces-backend.bkumar-be23.workers.dev/simple-contests/${contestId}/leaderboard`, {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setLeaderboard(data.leaderboard || []);
-      }
+      const data = await api.getSimpleContestLeaderboard(contestId);
+      setLeaderboard((data as any)?.leaderboard || []);
     } catch (error) {
       console.error("Error fetching leaderboard:", error);
     }
@@ -136,21 +108,7 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
 
     setSubmitting(true);
     try {
-      const response = await fetch(`https://codeforces-backend.bkumar-be23.workers.dev/simple-contests/${contestId}/submit`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          code,
-          language
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
+      await api.submitSimpleContestCode(contestId, code, language);
         toast({
           title: "Success!",
           description: "Code submitted successfully. AI is reviewing your solution...",
@@ -161,18 +119,11 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
           fetchSubmissions();
           fetchLeaderboard();
         }, 2000);
-      } else {
-        toast({
-          title: "Error",
-          description: data.error || "Failed to submit code",
-          variant: "destructive",
-        });
-      }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error submitting code:", error);
       toast({
         title: "Error",
-        description: "Network error while submitting code",
+        description: error?.message || "Network error while submitting code",
         variant: "destructive",
       });
     } finally {

@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { api } from "@/lib/api";
 
 interface LoginProps {
   onSuccess: (token: string, user: any) => void;
@@ -36,57 +37,28 @@ export default function Login({ onSuccess, onSwitchToSignup }: LoginProps) {
     setLoading(true);
     setErrors({});
 
-    const requestBody = {
-      email,
-      password,
-    };
-
     try {
-      const response = await fetch("https://codeforces-backend.bkumar-be23.workers.dev/users/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
+      const data = await api.signin(email, password);
+      if ((data as any)?.token) {
         toast({
           title: "Welcome back!",
           description: "Successfully signed in to your account.",
         });
         
         // Call the success callback with token and user data
-        onSuccess(data.token, data.user);
+        onSuccess((data as any).token, (data as any).user);
       } else {
-        // Handle API errors
-        if (data.error) {
-          toast({
-            title: "Error",
-            description: data.error,
-            variant: "destructive",
-          });
-        } else if (data.message) {
-          toast({
-            title: "Error",
-            description: data.message,
-            variant: "destructive",
-          });
-        } else {
-          toast({
-            title: "Error",
-            description: "Failed to sign in. Please check your credentials.",
-            variant: "destructive",
-          });
-        }
+        toast({
+          title: "Error",
+          description: "Failed to sign in. Please check your credentials.",
+          variant: "destructive",
+        });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Login error:", error);
       toast({
         title: "Error",
-        description: "Network error. Please check your connection and try again.",
+        description: error?.message || "Network error. Please check your connection and try again.",
         variant: "destructive",
       });
     } finally {

@@ -18,6 +18,7 @@ import {
   Eye
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { api } from "@/lib/api";
 
 interface User {
   id: string;
@@ -51,34 +52,21 @@ export default function Dashboard({ user, token, onLogout, onViewContest, onView
   const { toast } = useToast();
 
   useEffect(() => {
+    api.setToken(token);
     fetchContests();
   }, [token]);
 
   async function fetchContests() {
     try {
-      const response = await fetch("https://codeforces-backend.bkumar-be23.workers.dev/simple-contests", {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setContests(data.contests || []);
-      } else {
-        toast({
-          title: "Error",
-          description: "Failed to load contests",
-          variant: "destructive",
-        });
-      }
+      const data = await api.getSimpleContests();
+      setContests((data as any)?.contests || []);
     } catch (error) {
       console.error("Error fetching contests:", error);
-      toast({
-        title: "Error",
-        description: "Network error while loading contests",
-        variant: "destructive",
-      });
+        toast({
+          title: "Error",
+          description: (error as any)?.message || "Failed to load contests",
+          variant: "destructive",
+        });
     } finally {
       setLoading(false);
     }

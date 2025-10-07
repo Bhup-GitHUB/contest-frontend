@@ -1,276 +1,267 @@
-# 🎯 Admin Test Cases - Complete Contest Flow
+# Codeforces Backend API Guide for Frontend Developers
 
-**Base URL**: https://codeforces-backend.bkumar-be23.workers.dev
-
-## 📋 **Complete Admin Workflow Test**
-
-This guide tests the **complete contest flow** from admin perspective:
-1. Create contest
-2. Submit code as user
-3. Get AI review and marks
-4. Check leaderboard
-
----
-
-## 🔐 **Step 1: Setup Admin Access**
-
-### **1.1 Make User Admin (D1 Console)**
-```sql
-UPDATE users SET role = 'admin' WHERE email = 'bkumar_be23@thapar.edu';
+## 🚀 Base URL
+```
+https://codeforces-backend.bkumar-be23.workers.dev
 ```
 
-### **1.2 Login as Admin**
-```bash
-curl -X POST https://codeforces-backend.bkumar-be23.workers.dev/users/signin \
-  -H "Content-Type: application/json" \
-  -d '{
-    "email": "bkumar_be23@thapar.edu",
-    "password": "your_password_here"
-  }'
+## 🔐 Authentication
+Most endpoints require a JWT token in the Authorization header:
 ```
-
-**Expected Response:**
-```json
-{
-  "message": "Login successful",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "user": {
-    "id": "f87c5cf6-182d-45d1-8773-4967a04df628",
-    "email": "bkumar_be23@thapar.edu",
-    "name": "Bhupesh Kumar",
-    "role": "admin"
-  }
-}
-```
-
-**Save the JWT token for admin operations!**
-
----
-
-## 🏆 **Step 2: Create Contest (Admin)**
-
-### **2.1 Create Simple Contest**
-```bash
-curl -X POST https://codeforces-backend.bkumar-be23.workers.dev/simple-contests \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_ADMIN_JWT_TOKEN" \
-  -d '{
-    "title": "Two Sum Problem",
-    "description": "Find two numbers that add up to target",
-    "startTime": "2024-12-01T10:00:00Z",
-    "endTime": "2024-12-01T18:00:00Z",
-    "problemStatement": "Given an array of integers and a target sum, return indices of two numbers that add up to target.\n\nExample:\nInput: nums = [2,7,11,15], target = 9\nOutput: [0,1]\n\nConstraints:\n- 2 <= nums.length <= 10^4\n- -10^9 <= nums[i] <= 10^9\n- -10^9 <= target <= 10^9",
-    "expectedOutput": "[0,1]"
-  }'
-```
-
-**Expected Response:**
-```json
-{
-  "message": "Contest created successfully",
-  "contest": {
-    "id": "contest-uuid-here",
-    "title": "Two Sum Problem",
-    "description": "Find two numbers that add up to target",
-    "startTime": "2024-12-01T10:00:00.000Z",
-    "endTime": "2024-12-01T18:00:00.000Z",
-    "isActive": false,
-    "createdById": "f87c5cf6-182d-45d1-8773-4967a04df628",
-    "createdAt": "2025-10-02T01:45:43.000Z",
-    "challengeId": "challenge-uuid-here",
-    "problemStatement": "Given an array of integers and a target sum...",
-    "expectedOutput": "[0,1]"
-  }
-}
-```
-
-**Save the contest ID for next steps!**
-
-### **2.2 Verify Contest Created**
-```bash
-curl -X GET https://codeforces-backend.bkumar-be23.workers.dev/simple-contests \
-  -H "Authorization: Bearer YOUR_ADMIN_JWT_TOKEN"
-```
-
-**Expected Response:**
-```json
-{
-  "contests": [
-    {
-      "id": "contest-uuid-here",
-      "title": "Two Sum Problem",
-      "description": "Find two numbers that add up to target",
-      "startTime": "2024-12-01T10:00:00.000Z",
-      "endTime": "2024-12-01T18:00:00.000Z",
-      "isActive": false,
-      "createdById": "f87c5cf6-182d-45d1-8773-4967a04df628",
-      "createdAt": "2025-10-02T01:45:43.000Z"
-    }
-  ]
-}
+Authorization: Bearer <jwt-token>
 ```
 
 ---
 
-## 👤 **Step 3: Create Test User**
+## 📋 Quick Start Guide
 
-### **3.1 Create Regular User**
-```bash
-curl -X POST https://codeforces-backend.bkumar-be23.workers.dev/users/signup \
-  -H "Content-Type: application/json" \
-  -d '{
-    "email": "testuser@thapar.edu",
-    "password": "password123",
-    "name": "Test User"
-  }'
+### 1. User Registration
+**POST** `/users/signup`
+
+```json
+{
+  "email": "user@thapar.edu",
+  "password": "password123",
+  "name": "John Doe"
+}
 ```
 
-**Expected Response:**
+**Response:**
 ```json
 {
   "message": "Account created successfully",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "token": "jwt-token-here",
   "user": {
-    "id": "user-uuid-here",
-    "email": "testuser@thapar.edu",
-    "name": "Test User",
+    "id": "user-id",
+    "email": "user@thapar.edu",
+    "name": "John Doe",
     "role": "user"
   }
 }
 ```
 
-**Save the user JWT token!**
+### 2. User Login
+**POST** `/users/signin`
 
----
-
-## 💻 **Step 4: Submit Code (As User)**
-
-### **4.1 Submit Correct Solution**
-```bash
-curl -X POST https://codeforces-backend.bkumar-be23.workers.dev/simple-contests/CONTEST_ID/submit \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer USER_JWT_TOKEN" \
-  -d '{
-    "code": "def two_sum(nums, target):\n    for i in range(len(nums)):\n        for j in range(i+1, len(nums)):\n            if nums[i] + nums[j] == target:\n                return [i, j]\n    return []",
-    "language": "python"
-  }'
-```
-
-**Expected Response:**
 ```json
 {
-  "message": "Code submitted successfully",
-  "submissionId": "submission-uuid-here",
-  "status": "pending"
+  "email": "user@thapar.edu",
+  "password": "password123"
 }
 ```
 
-### **4.2 Submit Optimized Solution**
-```bash
-curl -X POST https://codeforces-backend.bkumar-be23.workers.dev/simple-contests/CONTEST_ID/submit \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer USER_JWT_TOKEN" \
-  -d '{
-    "code": "def two_sum(nums, target):\n    hashmap = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in hashmap:\n            return [hashmap[complement], i]\n        hashmap[num] = i\n    return []",
-    "language": "python"
-  }'
-```
-
-**Expected Response:**
+**Response:**
 ```json
 {
-  "message": "Code submitted successfully",
-  "submissionId": "submission-uuid-here-2",
-  "status": "pending"
+  "message": "Login successful",
+  "token": "jwt-token-here",
+  "user": {
+    "id": "user-id",
+    "email": "user@thapar.edu",
+    "name": "John Doe",
+    "role": "user"
+  }
 }
 ```
 
----
+### 3. Get User Profile
+**GET** `/users/me`
 
-## 📊 **Step 5: Check Results**
+**Headers:** `Authorization: Bearer <jwt-token>`
 
-### **5.1 Wait 10-15 seconds for AI processing, then check submissions**
-```bash
-curl -X GET https://codeforces-backend.bkumar-be23.workers.dev/simple-contests/CONTEST_ID/submissions \
-  -H "Authorization: Bearer USER_JWT_TOKEN"
-```
-
-**Expected Response:**
+**Response:**
 ```json
 {
-  "submissions": [
-    {
-      "id": "submission-uuid-here-2",
-      "status": "completed",
-      "score": 95,
-      "createdAt": "2025-10-02T01:50:00.000Z"
-    },
-    {
-      "id": "submission-uuid-here",
-      "status": "completed",
-      "score": 85,
-      "createdAt": "2025-10-02T01:49:00.000Z"
-    }
-  ]
-}
-```
-
-### **5.2 Get Detailed Submission Results**
-```bash
-curl -X GET https://codeforces-backend.bkumar-be23.workers.dev/submissions/SUBMISSION_ID \
-  -H "Authorization: Bearer USER_JWT_TOKEN"
-```
-
-**Expected Response:**
-```json
-{
-  "submission": {
-    "id": "submission-uuid-here-2",
-    "userId": "user-uuid-here",
-    "challengeId": "challenge-uuid-here",
-    "contestId": "contest-uuid-here",
-    "files": [{"path": "solution.py", "content": "def two_sum(nums, target):...", "language": "python"}],
-    "status": "completed",
-    "score": 95,
-    "testResults": null,
-    "aiReview": {
-      "totalScore": 95,
-      "breakdown": {
-        "correctness": {"score": 40, "feedback": "Produces correct output"},
-        "codeQuality": {"score": 28, "feedback": "Clean and readable code"},
-        "efficiency": {"score": 20, "feedback": "Optimal O(n) solution"},
-        "bestPractices": {"score": 7, "feedback": "Good use of hashmap"}
-      },
-      "strengths": ["Optimal algorithm", "Clean code", "Good variable names"],
-      "improvements": ["Add input validation", "Consider edge cases"],
-      "overallFeedback": "Excellent solution with optimal time complexity"
-    },
-    "createdAt": "2025-10-02T01:50:00.000Z"
+  "user": {
+    "id": "user-id",
+    "email": "user@thapar.edu",
+    "name": "John Doe",
+    "role": "user",
+    "createdAt": "2024-01-01T00:00:00.000Z"
   }
 }
 ```
 
 ---
 
-## 🏆 **Step 6: Check Leaderboard**
+## 🏆 Contest Management
 
-### **6.1 Get Contest Leaderboard**
-```bash
-curl -X GET https://codeforces-backend.bkumar-be23.workers.dev/simple-contests/CONTEST_ID/leaderboard \
-  -H "Authorization: Bearer USER_JWT_TOKEN"
+### Create Contest (Admin Only)
+**POST** `/contests`
+
+**Headers:**
+```
+Authorization: Bearer <admin-jwt-token>
+Content-Type: application/json
 ```
 
-**Expected Response:**
+**Request Body:**
+```json
+{
+  "title": "Weekly Coding Contest",
+  "description": "A challenging coding contest for all skill levels",
+  "difficulty": "easy"
+}
+```
+
+**Field Details:**
+- `title` (string, required): Contest title (1-200 characters)
+- `description` (string, required): Contest description (minimum 1 character)
+- `difficulty` (string, required): Must be "easy", "medium", or "hard"
+
+**Response (201):**
+```json
+{
+  "message": "Contest created successfully",
+  "contest": {
+    "id": "contest-uuid",
+    "title": "Weekly Coding Contest",
+    "description": "A challenging coding contest for all skill levels",
+    "difficulty": "easy",
+    "isActive": true
+  }
+}
+```
+
+**Auto-Generated Fields:**
+- Contest starts immediately
+- Contest ends 24 hours from creation
+- Contest is automatically set to active
+
+### Get All Contests
+**GET** `/contests`
+
+**Headers:** `Authorization: Bearer <jwt-token>`
+
+**Response (200):**
+```json
+{
+  "contests": [
+    {
+      "id": "contest-uuid",
+      "title": "Weekly Coding Contest",
+      "description": "A challenging coding contest",
+      "difficulty": "easy",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}
+```
+
+### Get Contest Details
+**GET** `/contests/:id`
+
+**Headers:** `Authorization: Bearer <jwt-token>`
+
+**Response (200):**
+```json
+{
+  "contest": {
+    "id": "contest-uuid",
+    "title": "Weekly Coding Contest",
+    "description": "A challenging coding contest",
+    "startTime": "2024-01-15T10:00:00.000Z",
+    "endTime": "2024-01-15T12:00:00.000Z",
+    "isActive": true,
+    "difficulty": "easy",
+    "createdById": "admin-user-id",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
+---
+
+## 🎯 Submission Management
+
+### Submit Code
+**POST** `/submissions`
+
+**Headers:**
+```
+Authorization: Bearer <jwt-token>
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "challengeId": "challenge-uuid",
+  "files": [
+    {
+      "path": "solution.py",
+      "content": "def solve():\n    return sum([1, 2, 3, 4, 5])",
+      "language": "python"
+    }
+  ]
+}
+```
+
+**Response (201):**
+```json
+{
+  "message": "Submission received",
+  "submissionId": "submission-id",
+  "status": "pending"
+}
+```
+
+### Get Submission Details
+**GET** `/submissions/:id`
+
+**Headers:** `Authorization: Bearer <jwt-token>`
+
+**Response (200):**
+```json
+{
+  "submission": {
+    "id": "submission-id",
+    "userId": "user-id",
+    "challengeId": "challenge-id",
+    "contestId": "contest-id",
+    "status": "completed",
+    "score": 85,
+    "files": [...],
+    "testResults": null,
+    "aiReview": {
+      "totalScore": 85,
+      "breakdown": {
+        "fileStructure": {"score": 18, "feedback": "Good file organization"},
+        "codeQuality": {"score": 22, "feedback": "Clean and readable code"},
+        "bestPractices": {"score": 20, "feedback": "Follows good practices"},
+        "functionality": {"score": 25, "feedback": "Correct logic implementation"}
+      },
+      "strengths": ["Good problem-solving approach", "Clean code structure"],
+      "improvements": ["Add more error handling", "Consider edge cases"],
+      "overallFeedback": "Good solution with room for improvement"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
+---
+
+## 📊 Leaderboard
+
+### Get Contest Leaderboard
+**GET** `/leaderboard/contest/:contestId`
+
+**Headers:** `Authorization: Bearer <jwt-token>`
+
+**Response (200):**
 ```json
 {
   "leaderboard": [
     {
-      "userId": "user-uuid-here",
+      "userId": "user-id",
       "score": 95,
       "rank": 1,
-      "updatedAt": "2025-10-02T01:50:00.000Z",
-      "userName": "Test User",
-      "userEmail": "testuser@thapar.edu"
+      "updatedAt": "2024-01-01T00:00:00.000Z",
+      "userName": "John Doe",
+      "userEmail": "john@thapar.edu"
     }
   ]
 }
@@ -278,88 +269,311 @@ curl -X GET https://codeforces-backend.bkumar-be23.workers.dev/simple-contests/C
 
 ---
 
-## 🧪 **Step 7: Test Edge Cases**
+## 🎮 Simple Contest (Alternative)
 
-### **7.1 Test Rate Limiting (Submit 6 times)**
-```bash
-# Submit 5 more times (should fail on 6th attempt)
-for i in {1..5}; do
-  curl -X POST https://codeforces-backend.bkumar-be23.workers.dev/simple-contests/CONTEST_ID/submit \
-    -H "Content-Type: application/json" \
-    -H "Authorization: Bearer USER_JWT_TOKEN" \
-    -d '{"code": "def two_sum(nums, target):\n    return [0,1]", "language": "python"}'
-done
+### Create Simple Contest (Admin Only)
+**POST** `/simple-contests`
+
+**Headers:**
+```
+Authorization: Bearer <admin-jwt-token>
+Content-Type: application/json
 ```
 
-**Expected Response (6th attempt):**
+**Request Body:**
 ```json
 {
-  "error": "Submission limit reached",
-  "message": "Maximum 5 submissions allowed per contest"
+  "title": "Quick Coding Challenge",
+  "description": "A simple coding problem to solve",
+  "difficulty": "easy"
 }
 ```
 
-### **7.2 Test Invalid Contest**
-```bash
-curl -X POST https://codeforces-backend.bkumar-be23.workers.dev/simple-contests/invalid-id/submit \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer USER_JWT_TOKEN" \
-  -d '{"code": "print(\"hello\")", "language": "python"}'
-```
-
-**Expected Response:**
+**Response (201):**
 ```json
 {
-  "error": "Contest not found"
+  "message": "Contest created successfully",
+  "contest": {
+    "id": "contest-uuid",
+    "title": "Quick Coding Challenge",
+    "description": "A simple coding problem to solve",
+    "difficulty": "easy",
+    "challengeId": "challenge-uuid",
+    "isActive": true
+  }
+}
+```
+
+### Submit Code for Simple Contest
+**POST** `/simple-contests/:id/submit`
+
+**Headers:**
+```
+Authorization: Bearer <jwt-token>
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "code": "def add_numbers(a, b):\n    return a + b\n\nprint(add_numbers(5, 3))",
+  "language": "python"
+}
+```
+
+**Response (201):**
+```json
+{
+  "message": "Code submitted successfully",
+  "submissionId": "submission-id",
+  "status": "pending"
 }
 ```
 
 ---
 
-## ✅ **Success Criteria Checklist**
+## 🚨 Error Handling
 
-- [ ] Admin can create contest successfully
-- [ ] Contest appears in contest list
-- [ ] User can submit code successfully
-- [ ] AI processes submission and returns score
-- [ ] Submission status changes from pending → running → completed
-- [ ] AI review contains detailed feedback and scoring breakdown
-- [ ] Leaderboard updates with user's best score
-- [ ] Rate limiting works (max 5 submissions)
-- [ ] Error handling works for invalid requests
-- [ ] All API responses are properly formatted
+### Common Error Format
+```json
+{
+  "error": "Error message",
+  "message": "Detailed error description"
+}
+```
+
+### HTTP Status Codes
+- `200` - Success
+- `201` - Created
+- `400` - Bad Request (validation errors)
+- `401` - Unauthorized (invalid/missing token)
+- `403` - Forbidden (insufficient permissions)
+- `404` - Not Found
+- `409` - Conflict (duplicate resource)
+- `429` - Too Many Requests (rate limit exceeded)
+- `500` - Internal Server Error
+
+### Example Error Responses
+
+**401 Unauthorized:**
+```json
+{
+  "error": "Unauthorized",
+  "message": "No token provided"
+}
+```
+
+**403 Forbidden:**
+```json
+{
+  "error": "Forbidden",
+  "message": "Admin access required"
+}
+```
+
+**400 Bad Request:**
+```json
+{
+  "error": "Validation Error",
+  "message": "Title is required"
+}
+```
 
 ---
 
-## 🎯 **Expected AI Scoring Breakdown**
+## 🔧 Frontend Implementation Examples
 
-**Good Solution (95+ points):**
-- Correctness: 40/40 (produces expected output)
-- Code Quality: 25-30/30 (clean, readable)
-- Efficiency: 15-20/20 (optimal algorithm)
-- Best Practices: 7-10/10 (good practices)
+### JavaScript/TypeScript Example
 
-**Average Solution (70-85 points):**
-- Correctness: 35-40/40 (mostly correct)
-- Code Quality: 20-25/30 (decent structure)
-- Efficiency: 10-15/20 (suboptimal but works)
-- Best Practices: 5-8/10 (some issues)
+```typescript
+// API Client Class
+class ContestAPI {
+  private baseURL = 'https://codeforces-backend.bkumar-be23.workers.dev';
+  private token: string | null = null;
 
-**Poor Solution (0-70 points):**
-- Correctness: 0-35/40 (incorrect or incomplete)
-- Code Quality: 10-20/30 (messy code)
-- Efficiency: 0-10/20 (very inefficient)
-- Best Practices: 0-5/10 (many issues)
+  setToken(token: string) {
+    this.token = token;
+  }
+
+  private async request(endpoint: string, options: RequestInit = {}) {
+    const url = `${this.baseURL}${endpoint}`;
+    const headers = {
+      'Content-Type': 'application/json',
+      ...(this.token && { Authorization: `Bearer ${this.token}` }),
+      ...options.headers,
+    };
+
+    const response = await fetch(url, { ...options, headers });
+    
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'API request failed');
+    }
+
+    return response.json();
+  }
+
+  // User Authentication
+  async signup(email: string, password: string, name: string) {
+    return this.request('/users/signup', {
+      method: 'POST',
+      body: JSON.stringify({ email, password, name }),
+    });
+  }
+
+  async signin(email: string, password: string) {
+    const result = await this.request('/users/signin', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    });
+    
+    if (result.token) {
+      this.setToken(result.token);
+    }
+    
+    return result;
+  }
+
+  async getProfile() {
+    return this.request('/users/me');
+  }
+
+  // Contest Management
+  async createContest(title: string, description: string, difficulty: 'easy' | 'medium' | 'hard') {
+    return this.request('/contests', {
+      method: 'POST',
+      body: JSON.stringify({ title, description, difficulty }),
+    });
+  }
+
+  async getContests() {
+    return this.request('/contests');
+  }
+
+  async getContest(id: string) {
+    return this.request(`/contests/${id}`);
+  }
+
+  // Submissions
+  async submitCode(challengeId: string, files: Array<{path: string, content: string, language: string}>) {
+    return this.request('/submissions', {
+      method: 'POST',
+      body: JSON.stringify({ challengeId, files }),
+    });
+  }
+
+  async getSubmission(id: string) {
+    return this.request(`/submissions/${id}`);
+  }
+
+  // Leaderboard
+  async getLeaderboard(contestId: string) {
+    return this.request(`/leaderboard/contest/${contestId}`);
+  }
+}
+
+// Usage Example
+const api = new ContestAPI();
+
+// Login
+const loginResult = await api.signin('user@thapar.edu', 'password123');
+
+// Create contest (admin only)
+const contest = await api.createContest(
+  'My Contest',
+  'A great coding challenge',
+  'easy'
+);
+
+// Get all contests
+const contests = await api.getContests();
+```
+
+### React Hook Example
+
+```typescript
+import { useState, useEffect } from 'react';
+
+export const useContests = () => {
+  const [contests, setContests] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchContests = async () => {
+    try {
+      setLoading(true);
+      const response = await api.getContests();
+      setContests(response.contests);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchContests();
+  }, []);
+
+  return { contests, loading, error, refetch: fetchContests };
+};
+```
 
 ---
 
-## 🚀 **Complete Flow Summary**
+## 📝 Important Notes
 
-1. ✅ **Admin creates contest** with problem statement
-2. ✅ **User submits code** (multiple attempts allowed)
-3. ✅ **AI reviews code** and provides detailed feedback
-4. ✅ **Scores are calculated** and stored
-5. ✅ **Leaderboard updates** automatically
-6. ✅ **Rate limiting prevents spam** submissions
+### Validation Rules
+- **Email**: Must be from @thapar.edu domain for signup
+- **Password**: Minimum 6 characters
+- **Title**: 1-200 characters for contests
+- **Difficulty**: Must be exactly "easy", "medium", or "hard"
 
-**Your contest platform is working perfectly! 🎉**
+### Rate Limits
+- Regular challenges: 10 submissions per challenge per user
+- Simple contests: 5 submissions per contest per user
+
+### Token Management
+- JWT tokens expire after 7 days
+- Store token securely (localStorage, sessionStorage, or secure cookies)
+- Include token in Authorization header for protected endpoints
+
+### Error Handling Best Practices
+1. Always check response status codes
+2. Parse error messages for user-friendly feedback
+3. Handle network errors gracefully
+4. Implement retry logic for failed requests
+
+### Security Considerations
+1. Never expose JWT tokens in client-side logs
+2. Use HTTPS for all API calls
+3. Validate user input before sending to API
+4. Implement proper logout functionality
+
+---
+
+## 🎨 UI/UX Recommendations
+
+### Loading States
+- Show loading spinners for async operations
+- Disable buttons during submission
+- Display progress indicators for long operations
+
+### Error Display
+- Show user-friendly error messages
+- Use toast notifications for temporary errors
+- Implement form validation with inline errors
+
+### Success Feedback
+- Show success messages for completed actions
+- Redirect users after successful operations
+- Update UI immediately for optimistic updates
+
+### Mobile Responsiveness
+- Ensure all forms work on mobile devices
+- Use touch-friendly button sizes
+- Implement proper keyboard handling
+
+---
+
+This API guide provides everything your frontend developer needs to integrate with your Codeforces backend! 🚀
