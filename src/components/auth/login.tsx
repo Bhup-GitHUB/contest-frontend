@@ -67,8 +67,8 @@ export default function Login({ onSuccess, onSwitchToSignup }: LoginProps) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#1a1a1a] p-4">
-      <Card className="w-full max-w-md shadow-xl bg-[#2a2a2a] border-[#00d9ff]">
+    <div className="min-h-screen flex items-center justify-center bg-black p-4">
+      <Card className="w-full max-w-md shadow-xl bg-[#111111] border-[#333333]">
         <CardHeader className="text-center pb-2">
           <CardTitle className="text-2xl font-bold text-white">Welcome Back</CardTitle>
           <p className="text-gray-400">Sign in to your account</p>
@@ -87,7 +87,7 @@ export default function Login({ onSuccess, onSwitchToSignup }: LoginProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="yourname@thapar.edu"
-                  className={`bg-[#1a1a1a] border-[#3a3a3a] text-white focus:border-[#00d9ff] ${errors.email ? "border-red-500" : ""}`}
+                  className={`bg-black border-[#333333] text-white focus:border-white ${errors.email ? "border-red-500" : ""}`}
                   disabled={loading}
                 />
               </div>
@@ -107,7 +107,7 @@ export default function Login({ onSuccess, onSwitchToSignup }: LoginProps) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
-                  className={`bg-[#1a1a1a] border-[#3a3a3a] text-white focus:border-[#00d9ff] ${errors.password ? "border-red-500" : ""}`}
+                  className={`bg-black border-[#333333] text-white focus:border-white ${errors.password ? "border-red-500" : ""}`}
                   disabled={loading}
                 />
               </div>
@@ -120,7 +120,7 @@ export default function Login({ onSuccess, onSwitchToSignup }: LoginProps) {
           <CardFooter className="flex flex-col space-y-4">
             <Button
               type="submit"
-              className="w-full bg-[#00d9ff] hover:bg-[#00b8d9] text-black font-medium py-2.5"
+              className="w-full bg-white hover:bg-[#e5e5e5] text-black font-medium py-2.5"
               disabled={loading}
             >
               {loading ? (
@@ -141,7 +141,7 @@ export default function Login({ onSuccess, onSwitchToSignup }: LoginProps) {
                 Don&apos;t have an account?{" "}
                 <button
                   type="button"
-                  className="text-[#00d9ff] hover:text-[#00b8d9] font-medium inline-flex items-center"
+                  className="text-white hover:text-[#e5e5e5] font-medium inline-flex items-center"
                   onClick={onSwitchToSignup}
                 >
                   Create Account

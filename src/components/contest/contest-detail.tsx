@@ -183,19 +183,19 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
   }
 
   return (
-    <div className="min-h-screen bg-[#1a1a1a]">
+    <div className="min-h-screen bg-black">
       {/* Header */}
-      <header className="bg-[#2a2a2a] border-b border-[#00d9ff]">
+      <header className="bg-[#111111] border-b border-[#333333]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <Button variant="outline" onClick={onBack} className="mr-4 border-[#00d9ff] text-gray-300 hover:bg-[#3a3a3a]">
+              <Button variant="outline" onClick={onBack} className="mr-4 border-[#333333] text-gray-300 hover:bg-[#111111]">
                 ← Back
               </Button>
               <h1 className="text-2xl font-bold text-white">{contest.title}</h1>
               <Badge 
                 variant={isContestActive() ? "default" : "secondary"}
-                className={`ml-3 ${isContestActive() ? "bg-green-600" : "bg-gray-600"}`}
+                className={`ml-3 ${isContestActive() ? "bg-white text-black" : "bg-[#222222] text-white border border-[#333333]"}`}
               >
                 {isContestActive() ? "Active" : "Inactive"}
               </Badge>
@@ -220,7 +220,7 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
           <TabsContent value="problem">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="lg:col-span-2">
-                <Card className="bg-[#2a2a2a] border-[#00d9ff]">
+                <Card className="bg-[#111111] border-[#333333]">
                   <CardHeader>
                     <CardTitle className="text-white">Problem Statement</CardTitle>
                   </CardHeader>
@@ -233,12 +233,12 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
                   </CardContent>
                 </Card>
 
-                <Card className="mt-6 bg-[#2a2a2a] border-[#00d9ff]">
+                <Card className="mt-6 bg-[#111111] border-[#333333]">
                   <CardHeader>
                     <CardTitle className="text-white">Expected Output</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="bg-[#3a3a3a] p-4 rounded-lg">
+                    <div className="bg-[#1a1a1a] p-4 rounded-lg">
                       <code className="text-sm text-gray-300">{contest.expectedOutput}</code>
                     </div>
                   </CardContent>
@@ -246,7 +246,7 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
               </div>
 
               <div className="space-y-6">
-                <Card className="bg-[#2a2a2a] border-[#00d9ff]">
+                <Card className="bg-[#111111] border-[#333333]">
                   <CardHeader>
                     <CardTitle className="text-white">Contest Info</CardTitle>
                   </CardHeader>
@@ -266,13 +266,13 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
                   </CardContent>
                 </Card>
 
-                <Card className="bg-[#2a2a2a] border-[#00d9ff]">
+                <Card className="bg-[#111111] border-[#333333]">
                   <CardHeader>
                     <CardTitle className="text-white">Best Score</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="text-center">
-                      <div className="text-3xl font-bold text-[#00d9ff]">
+                      <div className="text-3xl font-bold text-white">
                         {submissions.length > 0 ? Math.max(...submissions.map(s => s.score)) : 0}
                       </div>
                       <p className="text-sm text-gray-400">out of 100</p>
@@ -285,7 +285,7 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
 
           {/* Submit Tab */}
           <TabsContent value="submit">
-            <Card className="bg-[#2a2a2a] border-[#00d9ff]">
+            <Card className="bg-[#111111] border-[#333333]">
               <CardHeader>
                 <CardTitle className="text-white">Submit Solution</CardTitle>
                 <p className="text-sm text-gray-400">
@@ -298,7 +298,7 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
                   <select
                     value={language}
                     onChange={(e) => setLanguage(e.target.value)}
-                    className="border border-[#00d9ff] bg-[#3a3a3a] text-gray-300 rounded px-3 py-1 text-sm"
+                    className="border border-[#333333] bg-[#1a1a1a] text-gray-300 rounded px-3 py-1 text-sm"
                   >
                     <option value="python">Python</option>
                     <option value="javascript">JavaScript</option>
@@ -332,7 +332,7 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
                   <Button 
                     onClick={submitCode}
                     disabled={submitting || !isContestActive() || submissions.length >= 5}
-                    className="flex items-center space-x-2"
+                    className="flex items-center space-x-2 bg-white hover:bg-[#e5e5e5] text-black"
                   >
                     {submitting ? (
                       <>
@@ -349,10 +349,10 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
                 </div>
 
                 {!isContestActive() && (
-                  <div className="bg-yellow-900 border border-yellow-600 rounded-lg p-4">
+                  <div className="bg-[#1a1a1a] border border-[#333333] rounded-lg p-4">
                     <div className="flex items-center">
-                      <AlertCircle className="w-5 h-5 text-yellow-400 mr-2" />
-                      <span className="text-sm text-yellow-300">
+                      <AlertCircle className="w-5 h-5 text-gray-300 mr-2" />
+                      <span className="text-sm text-gray-300">
                         This contest is not currently active. You cannot submit solutions.
                       </span>
                     </div>
@@ -360,10 +360,10 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
                 )}
 
                 {submissions.length >= 5 && (
-                  <div className="bg-red-900 border border-red-600 rounded-lg p-4">
+                  <div className="bg-[#1a1a1a] border border-[#333333] rounded-lg p-4">
                     <div className="flex items-center">
-                      <XCircle className="w-5 h-5 text-red-400 mr-2" />
-                      <span className="text-sm text-red-300">
+                      <XCircle className="w-5 h-5 text-gray-300 mr-2" />
+                      <span className="text-sm text-gray-300">
                         You have reached the maximum number of submissions (5) for this contest.
                       </span>
                     </div>
@@ -375,7 +375,7 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
 
           {/* Submissions Tab */}
           <TabsContent value="submissions">
-            <Card className="bg-[#2a2a2a] border-[#00d9ff]">
+            <Card className="bg-[#111111] border-[#333333]">
               <CardHeader>
                 <CardTitle className="text-white">My Submissions</CardTitle>
               </CardHeader>
@@ -389,12 +389,12 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
                 ) : (
                   <div className="space-y-4">
                     {submissions.map((submission) => (
-                      <div key={submission.id} className="border border-[#00d9ff] bg-[#3a3a3a] rounded-lg p-4">
+                      <div key={submission.id} className="border border-[#333333] bg-[#1a1a1a] rounded-lg p-4">
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center space-x-2">
                             {getStatusIcon(submission.status)}
                             <span className="font-medium text-white">Submission #{submission.id.slice(-8)}</span>
-                            <Badge variant="outline" className="border-gray-500 text-gray-300">{submission.status}</Badge>
+                            <Badge variant="outline" className="border-[#333333] text-gray-300">{submission.status}</Badge>
                           </div>
                           <div className="text-sm text-gray-400">
                             {formatDate(submission.createdAt)}
@@ -419,7 +419,7 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
 
           {/* Leaderboard Tab */}
           <TabsContent value="leaderboard">
-            <Card className="bg-[#2a2a2a] border-[#00d9ff]">
+            <Card className="bg-[#111111] border-[#333333]">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2 text-white">
                   <Trophy className="w-5 h-5" />
@@ -436,9 +436,9 @@ export default function ContestDetail({ contestId, user, token, onBack }: Contes
                 ) : (
                   <div className="space-y-2">
                     {leaderboard.map((entry, index) => (
-                      <div key={entry.userId} className="flex items-center justify-between p-3 border border-[#00d9ff] bg-[#3a3a3a] rounded-lg">
+                      <div key={entry.userId} className="flex items-center justify-between p-3 border border-[#333333] bg-[#1a1a1a] rounded-lg">
                         <div className="flex items-center space-x-3">
-                          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#00d9ff] text-white font-semibold">
+                          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white text-black font-semibold">
                             {entry.rank}
                           </div>
                           <div>
